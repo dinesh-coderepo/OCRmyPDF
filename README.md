@@ -1,6 +1,6 @@
 <!-- SPDX-FileCopyrightText: 2014 Julien Pfefferkorn -->
 <!-- SPDX-FileCopyrightText: 2015 James R. Barlow -->
-<!-- SPDX-License-Identifier: CC-BY-SA-4.0 -->
+<!-- SPDX-FileCopyrightText: CC-BY-SA-4.0 -->
 
 <img src="docs/images/logo.svg" width="240" alt="OCRmyPDF">
 
@@ -140,27 +140,24 @@ For more features, see the [documentation](https://ocrmypdf.readthedocs.io/en/la
 
 In addition to the required Python version, OCRmyPDF requires external program installations of Ghostscript and Tesseract OCR. OCRmyPDF is pure Python, and runs on pretty much everything: Linux, macOS, Windows and FreeBSD.
 
-## Press & Media
+## Technical Details
 
-- [Going paperless with OCRmyPDF](https://medium.com/@ikirichenko/going-paperless-with-ocrmypdf-e2f36143f46a)
-- [Converting a scanned document into a compressed searchable PDF with redactions](https://medium.com/@treyharris/converting-a-scanned-document-into-a-compressed-searchable-pdf-with-redactions-63f61c34fe4c)
-- [c't 1-2014, page 59](https://heise.de/-2279695): Detailed presentation of OCRmyPDF v1.0 in the leading German IT magazine c't
-- [heise Open Source, 09/2014: Texterkennung mit OCRmyPDF](https://heise.de/-2356670)
-- [heise Durchsuchbare PDF-Dokumente mit OCRmyPDF erstellen](https://www.heise.de/ratgeber/Durchsuchbare-PDF-Dokumente-mit-OCRmyPDF-erstellen-4607592.html)
-- [Excellent Utilities: OCRmyPDF](https://www.linuxlinks.com/excellent-utilities-ocrmypdf-add-ocr-text-layer-scanned-pdfs/)
-- [LinuxUser Texterkennung mit OCRmyPDF und Scanbd automatisieren](https://www.linux-community.de/ausgaben/linuxuser/2021/06/texterkennung-mit-ocrmypdf-und-scanbd-automatisieren/)
-- [Y Combinator discussion](https://news.ycombinator.com/item?id=32028752)
+### How the Search Occurs
 
-## Business enquiries
+OCRmyPDF uses the Tesseract OCR engine to recognize text in scanned PDF files. The process involves several steps:
 
-OCRmyPDF would not be the software that it is today without companies and users choosing to provide support for feature development and consulting enquiries. We are happy to discuss all enquiries, whether for extending the existing feature set, or integrating OCRmyPDF into a larger system.
+1. **Preprocessing**: The input PDF is preprocessed to improve the quality of the images. This may include deskewing, cleaning, and other image enhancements.
+2. **OCR**: Tesseract is used to perform OCR on the preprocessed images. Tesseract analyzes the images and identifies text regions, recognizing characters and words.
+3. **Text Layer Creation**: The recognized text is used to create an OCR text layer, which is added to the PDF. This text layer is positioned accurately below the original image to ensure proper alignment.
+4. **PDF/A Conversion**: If requested, the output PDF is converted to PDF/A format, which is suitable for long-term archiving.
 
-## License
+### Output Format of the Search Results
 
-The OCRmyPDF software is licensed under the Mozilla Public License 2.0 (MPL-2.0). This license permits integration of OCRmyPDF with other code, included commercial and closed source, but asks you to publish source-level modifications you make to OCRmyPDF.
+The output of OCRmyPDF is a searchable PDF file. The key features of the output format are:
 
-Some components of OCRmyPDF have other licenses, as indicated by standard SPDX license identifiers or the DEP5 copyright and licensing information file. Generally speaking, non-core code is licensed under MIT, and the documentation and test files are licensed under Creative Commons ShareAlike 4.0 (CC-BY-SA 4.0).
+- **Searchable Text**: The OCR text layer allows the PDF to be searched for specific words or phrases. The text is hidden behind the original image, preserving the visual appearance of the document.
+- **Copy/Paste Functionality**: The recognized text can be selected and copied from the PDF, enabling easy extraction of text content.
+- **PDF/A Compliance**: If PDF/A conversion is enabled, the output PDF will comply with the PDF/A standard, ensuring long-term preservation and compatibility with archival systems.
+- **Optimized File Size**: OCRmyPDF optimizes the PDF images, often resulting in smaller file sizes compared to the input file.
 
-## Disclaimer
-
-The software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+For more details, see the [technical documentation](docs/technical.md).
